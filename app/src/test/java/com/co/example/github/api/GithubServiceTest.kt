@@ -19,7 +19,6 @@ package com.co.example.github.api
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.co.example.github.util.LiveDataCallAdapterFactory
 import com.co.example.github.util.LiveDataTestUtil.getValue
-import com.co.example.github.vo.User
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
@@ -59,20 +58,6 @@ class GithubServiceTest {
     @After
     fun stopService() {
         mockWebServer.shutdown()
-    }
-
-    @Test
-    fun getUser() {
-        enqueueResponse("user-yigit.json")
-        val yigit = (getValue(service.getUser("yigit")) as ApiSuccessResponse).body
-
-        val request = mockWebServer.takeRequest()
-        assertThat(request.path, `is`("/users/yigit"))
-
-        assertThat<User>(yigit, notNullValue())
-        assertThat(yigit.avatarUrl, `is`("https://avatars3.githubusercontent.com/u/89202?v=3"))
-        assertThat(yigit.company, `is`("Google"))
-        assertThat(yigit.blog, `is`("birbit.com"))
     }
 
     @Test

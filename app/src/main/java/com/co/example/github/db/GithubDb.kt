@@ -16,29 +16,22 @@
 
 package com.co.example.github.db
 
-
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.co.example.github.vo.Contributor
-import com.co.example.github.vo.Repo
 import com.co.example.github.vo.RepoSearchResult
-import com.co.example.github.vo.User
+import com.co.example.github.vo.UserRepo
 
 /**
  * Main database description.
  */
 @Database(
     entities = [
-        User::class,
-        Repo::class,
-        Contributor::class,
+        UserRepo::class,
         RepoSearchResult::class],
     version = 3,
     exportSchema = false
 )
 abstract class GithubDb : RoomDatabase() {
 
-    abstract fun userDao(): UserDao
-
-    abstract fun repoDao(): RepoDao
+    abstract fun userRepoDao(): UserRepoDao
 }

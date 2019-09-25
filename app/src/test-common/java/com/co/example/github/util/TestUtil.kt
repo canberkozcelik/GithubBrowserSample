@@ -16,22 +16,11 @@
 
 package com.co.example.github.util
 
-import com.co.example.github.vo.Contributor
-import com.co.example.github.vo.Repo
-import com.co.example.github.vo.User
+import com.co.example.github.vo.UserRepo
 
 object TestUtil {
 
-    fun createUser(login: String) = User(
-        login = login,
-        avatarUrl = null,
-        name = "$login name",
-        company = null,
-        reposUrl = null,
-        blog = null
-    )
-
-    fun createRepos(count: Int, owner: String, name: String, description: String): List<Repo> {
+    fun createRepos(count: Int, owner: String, name: String, description: String): List<UserRepo> {
         return (0 until count).map {
             createRepo(
                 owner = owner + it,
@@ -42,27 +31,18 @@ object TestUtil {
     }
 
     fun createRepo(owner: String, name: String, description: String) = createRepo(
-        id = Repo.UNKNOWN_ID,
+        id = UserRepo.UNKNOWN_ID,
         owner = owner,
         name = name,
         description = description
     )
 
-    fun createRepo(id: Int, owner: String, name: String, description: String) = Repo(
+    fun createRepo(id: Int, owner: String, name: String, description: String) = UserRepo(
         id = id,
         name = name,
         fullName = "$owner/$name",
         description = description,
-        owner = Repo.Owner(owner, null),
+        owner = UserRepo.Owner(owner, null),
         stars = 3
     )
-
-    fun createContributor(repo: Repo, login: String, contributions: Int) = Contributor(
-        login = login,
-        contributions = contributions,
-        avatarUrl = null
-    ).apply {
-        repoName = repo.name
-        repoOwner = repo.owner.login
-    }
 }

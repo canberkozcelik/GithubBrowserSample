@@ -22,6 +22,8 @@
     <string name="a11y_user_name">user name</string>
     <string name="search_hint">search repositories</string>
     <string name="repo_full_name"><b>%s</b>/%s</string>
+    <string name="stars_count">Stars: %d</string>
+    <string name="open_issues">Open issues: %d</string>
     <string name="empty_search_result">No results for <b>%s</b></string>
-    <string name="a11y_contributor_avatar">contributor avatar</string>
+    <string name="a11y_avatar">user avatar</string>
 </resources>

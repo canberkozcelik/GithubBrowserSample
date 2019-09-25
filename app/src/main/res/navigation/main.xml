@@ -24,36 +24,14 @@
         android:label="SearchFragment" >
         <action
             android:id="@+id/showRepo"
-            app:destination="@id/repoFragment" />
+            app:destination="@id/userRepoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/repoFragment"
-        android:name="com.co.example.github.ui.repo.RepoFragment"
-        android:label="RepoFragment" >
+        android:id="@+id/userRepoFragment"
+        android:name="com.co.example.github.ui.userrepo.UserRepoFragment"
+        android:label="UserRepoFragment" >
         <argument
-            android:name="owner"
-            app:argType="string" />
-        <argument
-            android:name="name"
-            app:argType="string" />
-        <action
-            android:id="@+id/showUser"
-            app:destination="@id/userFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userFragment"
-        android:name="com.co.example.github.ui.user.UserFragment"
-        android:label="UserFragment" >
-        <argument
-            android:name="login"
-            app:argType="string"/>
-        <argument
-            android:name="avatarUrl"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/showRepo"
-            app:destination="@id/repoFragment" />
+            android:name="repo"
+            app:argType="com.co.example.github.vo.UserRepo" />
     </fragment>
 </navigation>

@@ -20,9 +20,9 @@ package com.co.example.github.ui.search
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.co.example.github.repository.RepoRepository
+import com.co.example.github.repository.UserRepoRepository
 import com.co.example.github.util.mock
-import com.co.example.github.vo.Repo
+import com.co.example.github.vo.UserRepo
 import com.co.example.github.vo.Resource
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -43,7 +43,7 @@ class SearchViewModelTest {
     @Rule
     @JvmField
     val instantExecutor = InstantTaskExecutorRule()
-    private val repository = mock(RepoRepository::class.java)
+    private val repository = mock(UserRepoRepository::class.java)
     private lateinit var viewModel: SearchViewModel
 
     @Before
@@ -54,7 +54,7 @@ class SearchViewModelTest {
 
     @Test
     fun empty() {
-        val result = mock<Observer<Resource<List<Repo>>>>()
+        val result = mock<Observer<Resource<List<UserRepo>>>>()
         viewModel.results.observeForever(result)
         viewModel.loadNextPage()
         verifyNoMoreInteractions(repository)
@@ -62,7 +62,7 @@ class SearchViewModelTest {
 
     @Test
     fun basic() {
-        val result = mock<Observer<Resource<List<Repo>>>>()
+        val result = mock<Observer<Resource<List<UserRepo>>>>()
         viewModel.results.observeForever(result)
         viewModel.setQuery("foo")
         verify(repository).search("foo")
@@ -85,14 +85,13 @@ class SearchViewModelTest {
         val nextPage = MutableLiveData<Resource<Boolean>>()
         `when`(repository.searchNextPage("foo")).thenReturn(nextPage)
 
-        val result = mock<Observer<Resource<List<Repo>>>>()
+        val result = mock<Observer<Resource<List<UserRepo>>>>()
         viewModel.results.observeForever(result)
         verifyNoMoreInteractions(repository)
         viewModel.setQuery("foo")
         verify(repository).search("foo")
         viewModel.loadNextPage()
 
-        viewModel.loadMoreStatus.observeForever(mock())
         verify(repository).searchNextPage("foo")
         assertThat(nextPage.hasActiveObservers(), `is`(true))
         viewModel.setQuery("bar")

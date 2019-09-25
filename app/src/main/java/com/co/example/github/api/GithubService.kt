@@ -17,9 +17,7 @@
 package com.co.example.github.api
 
 import androidx.lifecycle.LiveData
-import com.co.example.github.vo.Contributor
-import com.co.example.github.vo.Repo
-import com.co.example.github.vo.User
+import com.co.example.github.vo.UserRepo
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -29,23 +27,14 @@ import retrofit2.http.Query
  * REST API access points
  */
 interface GithubService {
-    @GET("users/{login}")
-    fun getUser(@Path("login") login: String): LiveData<ApiResponse<User>>
-
-    @GET("users/{login}/repos")
-    fun getRepos(@Path("login") login: String): LiveData<ApiResponse<List<Repo>>>
+    @GET("users/{username}/repos")
+    fun getUserRepos(@Path("username") username: String): LiveData<ApiResponse<List<UserRepo>>>
 
     @GET("repos/{owner}/{name}")
-    fun getRepo(
-        @Path("owner") owner: String,
-        @Path("name") name: String
-    ): LiveData<ApiResponse<Repo>>
-
-    @GET("repos/{owner}/{name}/contributors")
-    fun getContributors(
-        @Path("owner") owner: String,
-        @Path("name") name: String
-    ): LiveData<ApiResponse<List<Contributor>>>
+    fun getUserRepo(
+            @Path("owner") owner: String,
+            @Path("name") name: String
+    ): LiveData<ApiResponse<UserRepo>>
 
     @GET("search/repositories")
     fun searchRepos(@Query("q") query: String): LiveData<ApiResponse<RepoSearchResponse>>

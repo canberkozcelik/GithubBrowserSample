@@ -16,22 +16,18 @@
 
 package com.co.example.github.di
 
-import com.co.example.github.ui.repo.RepoFragment
 import com.co.example.github.ui.search.SearchFragment
-import com.co.example.github.ui.user.UserFragment
-
+import com.co.example.github.ui.userrepo.UserRepoFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Suppress("unused")
 @Module
 abstract class FragmentBuildersModule {
-    @ContributesAndroidInjector
-    abstract fun contributeRepoFragment(): RepoFragment
-
-    @ContributesAndroidInjector
-    abstract fun contributeUserFragment(): UserFragment
 
     @ContributesAndroidInjector
     abstract fun contributeSearchFragment(): SearchFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeUserRepoFragment(): UserRepoFragment
 }

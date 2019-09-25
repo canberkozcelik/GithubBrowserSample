@@ -20,7 +20,7 @@
 
     <data>
 
-        <import type="com.co.example.github.vo.Repo" />
+        <import type="com.co.example.github.vo.UserRepo" />
 
         <import type="java.util.List" />
 
@@ -38,7 +38,7 @@
 
         <variable
             name="searchResult"
-            type="LiveData&lt;Resource&lt;List&lt;Repo>>>" />
+            type="LiveData&lt;Resource&lt;List&lt;UserRepo>>>" />
 
         <variable
             name="callback"

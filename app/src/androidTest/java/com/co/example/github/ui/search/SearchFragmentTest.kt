@@ -46,8 +46,8 @@ import com.co.example.github.util.TaskExecutorWithIdlingResourceRule
 import com.co.example.github.util.TestUtil
 import com.co.example.github.util.ViewModelUtil
 import com.co.example.github.util.mock
-import com.co.example.github.vo.Repo
 import com.co.example.github.vo.Resource
+import com.co.example.github.vo.UserRepo
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
@@ -76,14 +76,12 @@ class SearchFragmentTest {
 
     private lateinit var mockBindingAdapter: FragmentBindingAdapters
     private lateinit var viewModel: SearchViewModel
-    private val results = MutableLiveData<Resource<List<Repo>>>()
-    private val loadMoreStatus = MutableLiveData<SearchViewModel.LoadMoreState>()
+    private val results = MutableLiveData<Resource<List<UserRepo>>>()
     private val searchFragment = TestSearchFragment()
 
     @Before
     fun init() {
         viewModel = mock(SearchViewModel::class.java)
-        doReturn(loadMoreStatus).`when`(viewModel).loadMoreStatus
         `when`(viewModel.results).thenReturn(results)
 
         mockBindingAdapter = mock(FragmentBindingAdapters::class.java)
@@ -151,24 +149,6 @@ class SearchFragmentTest {
         onView(withText("desc")).perform(click())
         verify(searchFragment.navController).navigate(
                 SearchFragmentDirections.showRepo("foo", "bar")
-        )
-    }
-
-    @Test
-    fun loadMoreProgress() {
-        loadMoreStatus.postValue(SearchViewModel.LoadMoreState(true, null))
-        onView(withId(R.id.load_more_bar)).check(matches(isDisplayed()))
-        loadMoreStatus.postValue(SearchViewModel.LoadMoreState(false, null))
-        onView(withId(R.id.load_more_bar)).check(matches(not(isDisplayed())))
-    }
-
-    @Test
-    fun loadMoreProgressError() {
-        loadMoreStatus.postValue(SearchViewModel.LoadMoreState(true, "QQ"))
-        onView(withText("QQ")).check(
-            matches(
-                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)
-            )
         )
     }
 

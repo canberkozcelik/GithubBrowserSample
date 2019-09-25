@@ -20,8 +20,7 @@ import android.app.Application
 import androidx.room.Room
 import com.co.example.github.api.GithubService
 import com.co.example.github.db.GithubDb
-import com.co.example.github.db.RepoDao
-import com.co.example.github.db.UserDao
+import com.co.example.github.db.UserRepoDao
 import com.co.example.github.util.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -53,13 +52,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideUserDao(db: GithubDb): UserDao {
-        return db.userDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideRepoDao(db: GithubDb): RepoDao {
-        return db.repoDao()
+    fun provideUserRepoDao(db: GithubDb): UserRepoDao {
+        return db.userRepoDao()
     }
 }

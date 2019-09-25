@@ -62,59 +62,24 @@ class GithubServiceTest {
 
     @Test
     fun getRepos() {
-        enqueueResponse("repos-yigit.json")
-        val repos = (getValue(service.getRepos("yigit")) as ApiSuccessResponse).body
+        enqueueResponse("repos-canberk.json")
+        val repos = (getValue(service.getUserRepos("canberkozcelik")) as ApiSuccessResponse).body
 
         val request = mockWebServer.takeRequest()
-        assertThat(request.path, `is`("/users/yigit/repos"))
+        assertThat(request.path, `is`("/users/canberkozcelik/repos"))
 
         assertThat(repos.size, `is`(2))
 
         val repo = repos[0]
-        assertThat(repo.fullName, `is`("yigit/AckMate"))
+        assertThat(repo.fullName, `is`("canberkozcelik/StatusStories"))
 
         val owner = repo.owner
         assertThat(owner, notNullValue())
-        assertThat(owner.login, `is`("yigit"))
-        assertThat(owner.url, `is`("https://api.github.com/users/yigit"))
+        assertThat(owner.login, `is`("canberkozcelik"))
+        assertThat(owner.url, `is`("https://api.github.com/users/canberkozcelik"))
 
         val repo2 = repos[1]
-        assertThat(repo2.fullName, `is`("yigit/android-architecture"))
-    }
-
-    @Test
-    fun getContributors() {
-        enqueueResponse("contributors.json")
-        val value = getValue(service.getContributors("foo", "bar"))
-        val contributors = (value as ApiSuccessResponse).body
-        assertThat(contributors.size, `is`(3))
-        val yigit = contributors[0]
-        assertThat(yigit.login, `is`("yigit"))
-        assertThat(yigit.avatarUrl, `is`("https://avatars3.githubusercontent.com/u/89202?v=3"))
-        assertThat(yigit.contributions, `is`(291))
-        assertThat(contributors[1].login, `is`("guavabot"))
-        assertThat(contributors[2].login, `is`("coltin"))
-    }
-
-    @Test
-    fun search() {
-        val next = """<https://api.github.com/search/repositories?q=foo&page=2>; rel="next""""
-        val last = """<https://api.github.com/search/repositories?q=foo&page=34>; rel="last""""
-        enqueueResponse(
-            "search.json", mapOf(
-                "link" to "$next,$last"
-            )
-        )
-        val response = getValue(service.searchRepos("foo")) as ApiSuccessResponse
-
-        assertThat(response, notNullValue())
-        assertThat(response.body.total, `is`(41))
-        assertThat(response.body.items.size, `is`(30))
-        assertThat<String>(
-            response.links["next"],
-            `is`("https://api.github.com/search/repositories?q=foo&page=2")
-        )
-        assertThat<Int>(response.nextPage, `is`(2))
+        assertThat(repo2.fullName, `is`("canberkozcelik/stories"))
     }
 
     private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {

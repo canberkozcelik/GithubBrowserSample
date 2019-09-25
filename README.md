@@ -1,7 +1,7 @@
-Github Browser Sample with Android Architecture Components
+Github Browser Sample with Android Architecture Components (FORK)
 ===========================================================
 
-This is a sample app that uses Android Architecture Components with Dagger 2.
+This is a fork of sample app that uses Android Architecture Components with Dagger 2.
 
 **NOTE** It is a relatively more complex and complete example so if you are not familiar
 with [Architecture Components][arch], you are highly recommended to check other examples
@@ -11,24 +11,22 @@ Introduction
 -------------
 
 ### Functionality
-The app is composed of 3 main screens.
+The app is composed of 2 main screens.
 #### SearchFragment
 Allows you to search repositories on Github.
 Each search result is kept in the database in `RepoSearchResult` table where
 the list of repository IDs are denormalized into a single column.
-The actual `Repo` instances live in the `Repo` table.
+The actual `UserRepo` instances live in the `UserRepo` table.
 
 Each time a new page is fetched, the same `RepoSearchResult` record in the
 Database is updated with the new list of repository ids.
 
-**NOTE** The UI currently loads all `Repo` items at once, which would not
+**NOTE** The UI currently loads all `UserRepo` items at once, which would not
 perform well on lower end devices. Instead of manually writing lazy
 adapters, we've decided to wait until the built in support in Room is released.
 
-#### RepoFragment
-This fragment displays the details of a repository and its contributors.
-#### UserFragment
-This fragment displays a user and their repositories.
+#### UserRepoFragment
+This fragment displays the details of a repository and its owner.
 
 ### Building
 You can open the project in Android studio and press run.
@@ -41,9 +39,7 @@ To run both of them and generate a coverage report, you can run:
 
 #### Device Tests
 ##### UI Tests
-The projects uses Espresso for UI testing. Since each fragment
-is limited to a ViewModel, each test mocks related ViewModel to
-run the tests.
+I have removed the UI tests due to lack of knowledge of mine, didn't understand them ¯\\_(ツ)_/¯
 ##### Database Tests
 The project creates an in memory database for each database test but still
 runs them on the device.
